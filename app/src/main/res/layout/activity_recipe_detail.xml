@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 菜谱图片 - 添加圆角和阴影 -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/detailImageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MediumComponent"
+            app:strokeColor="@color/strokeColor"
+            app:strokeWidth="1dp"
+            android:contentDescription="@string/recipe_image_desc"/>
+
+        <!-- 菜谱名称 - 优化文本样式 -->
+        <TextView
+            android:id="@+id/recipeNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/onSurface"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.02"
+            tools:text="辣椒炒肉"/>
+
+        <!-- 热量信息 - 添加图标和更好看的样式 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_launcher_foreground"
+                android:contentDescription="@null"/>
+
+            <TextView
+                android:id="@+id/caloriesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp"
+                tools:text="热量: 350 卡路里"/>
+        </LinearLayout>
+
+        <!-- 添加食材和做法部分 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardElevation="2dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SmallComponent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ingredients_title"
+                    android:textColor="@color/onSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/ingredientsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/onSurfaceVariant"
+                    tools:text="• 猪肉 300g\n• 青椒 200g\n• 大蒜 3瓣\n• 生抽 2勺"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardElevation="2dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SmallComponent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/steps_title"
+                    android:textColor="@color/onSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/stepsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/onSurfaceVariant"
+                    tools:text="1. 猪肉切片腌制10分钟\n2. 青椒切丝备用\n3. 热油爆香蒜末\n4. 先炒肉片后加入青椒"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 收藏按钮 - 改为Material风格 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/favoriteButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/favorite"
+            app:icon="@drawable/ic_launcher_foreground"
+            app:iconGravity="textStart"
+            app:iconTint="@color/primaryColor"
+            app:strokeColor="@color/primaryColor"
+            android:contentDescription="@string/favorite"/>
+    </LinearLayout>
+</ScrollView>

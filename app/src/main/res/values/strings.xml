@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ChefMaster</string>
+    <string name="search_hint">搜索菜谱</string>
+    <string name="today_recipe">今日菜谱</string>
+    <string name="recommend">推荐</string>
+    <string name="category">分类</string>
+    <string name="sort_by_calories">按热量排序</string>
+    <string name="sort_by_calories_selected">按热量排序 ✓</string>
+    <string name="recipes_list_description">菜谱列表，包含多种美食制作方法</string>
+    <string name="favorite">收藏</string>
+    <string name="ingredients_title">食材</string>
+    <string name="steps_title">做法</string>
+    <string name="recipe_image_desc">菜谱展示图片</string>
+</resources>
