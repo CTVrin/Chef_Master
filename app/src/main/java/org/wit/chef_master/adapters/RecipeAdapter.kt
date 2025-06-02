@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import org.wit.chef_master.R
 import org.wit.chef_master.models.Recipe
 
+
 class RecipeAdapter(
     private val recipes: List<Recipe>,
-    private val onItemClick: (Recipe) -> Unit
 ) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
+    // 定义点击回调（参数为图片ID）
+    var onImageClick: ((imageId: Int) -> Unit)? = null
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.recipeImageView)
@@ -31,7 +34,10 @@ class RecipeAdapter(
         holder.imageView.setImageResource(recipe.imageResId)
         holder.nameTextView.text = recipe.name
 
-        holder.itemView.setOnClickListener { onItemClick(recipe) }
+        // 点击图片时回调
+        holder.imageView.setOnClickListener {
+            onImageClick?.invoke(recipe.id) // 传递菜品ID
+        }
     }
 
     override fun getItemCount() = recipes.size

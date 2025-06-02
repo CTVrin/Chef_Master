@@ -1,15 +1,19 @@
 package org.wit.chef_master.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import org.wit.chef_master.R
+import org.wit.chef_master.adapters.RecipeAdapter
+import org.wit.chef_master.utils.DataManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,12 +30,18 @@ class MainActivity : AppCompatActivity() {
 
         recipesRecyclerView = findViewById(R.id.recipesRecyclerView)
         recipesRecyclerView.layoutManager = LinearLayoutManager(this)
-
+        val adapter=RecipeAdapter(DataManager.getRecipes(true))
+        adapter.onImageClick= { imageId ->
+            // 跳转并传递ID
+            startActivity(Intent(this, RecipeDetailActivity::class.java).apply {
+                putExtra("RECIPE_ID", imageId)
+            })
+        }
+        recipesRecyclerView.adapter =adapter
         // 初始化所有视图
         initViews()
 
-        // 设置视图逻辑
-        setupViews()
+
     }
 
     private fun initViews() {
@@ -53,11 +63,13 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
+
         })
 
         // 排序按钮点击事件
         sortButton.setOnClickListener {
             // 排序逻辑
+
         }
 
         // 今日菜谱按钮点击事件

@@ -10,9 +10,9 @@ object DataManager {
     init {
         // 初始化示例数据
         recipes.addAll(listOf(
-            Recipe(1, "辣椒炒肉", R.drawable.ic_launcher_background, 350),
-            Recipe(2, "槐花炒蛋", R.drawable.ic_launcher_background, 280),
-            Recipe(3, "煎牛排", R.drawable.ic_launcher_background, 450)
+            Recipe(1, "辣椒炒肉", R.drawable.lajiaochaorou, 350),
+            Recipe(2, "槐花炒蛋", R.drawable.huaihuachaodan, 280),
+            Recipe(3, "煎牛排", R.drawable.niupai, 450)
         ))
     }
 
