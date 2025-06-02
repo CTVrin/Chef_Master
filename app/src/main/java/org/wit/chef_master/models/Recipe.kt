@@ -5,5 +5,6 @@ data class Recipe(
     val name: String,
     val imageResId: Int,
     val calories: Int,
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    var cookingTime:Int
 )

@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tabLayout: TabLayout
     private lateinit var sortButton: Button
     private lateinit var recipesRecyclerView: RecyclerView
+    private lateinit var adapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         recipesRecyclerView = findViewById(R.id.recipesRecyclerView)
         recipesRecyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter=RecipeAdapter(DataManager.getRecipes(true))
+        adapter=RecipeAdapter(DataManager.getRecipes(false).sortedBy { it.calories })
         adapter.onImageClick= { imageId ->
             // 跳转并传递ID
             startActivity(Intent(this, RecipeDetailActivity::class.java).apply {
@@ -40,6 +42,10 @@ class MainActivity : AppCompatActivity() {
         recipesRecyclerView.adapter =adapter
         // 初始化所有视图
         initViews()
+        // 排序按钮点击事件
+        findViewById<Button>(R.id.sortButton).setOnClickListener {
+            showSortDialog()
+        }
 
 
     }
@@ -66,17 +72,39 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        // 排序按钮点击事件
-        sortButton.setOnClickListener {
-            // 排序逻辑
-
-        }
 
         // 今日菜谱按钮点击事件
         todayRecipeButton.setOnClickListener {
             // 今日菜谱逻辑
         }
     }
+    private fun showSortDialog() {
+        val options = arrayOf("按热量排序", "按制作时长排序")
+
+        AlertDialog.Builder(this)
+            .setTitle("选择排序方式")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> sortByCalories()
+                    1 -> sortByCookingTime()
+                }
+            }
+            .show()
+    }
+    private fun sortByCalories() {
+        val sortButton=findViewById<Button>(R.id.sortButton)
+        sortButton.text="按热量排序"
+        val sorted = DataManager.getRecipes(false).sortedBy { it.calories }
+        adapter.updateData(sorted)
+    }
+
+    private fun sortByCookingTime() {
+        val sortButton=findViewById<Button>(R.id.sortButton)
+        sortButton.text="按制作时长排序"
+        val sorted = DataManager.getRecipes(false).sortedBy { it.cookingTime }
+        adapter.updateData(sorted)
+    }
+
 
     private fun loadRecipes() {
         // 加载菜谱逻辑

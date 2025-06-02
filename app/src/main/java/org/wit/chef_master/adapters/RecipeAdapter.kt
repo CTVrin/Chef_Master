@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.wit.chef_master.R
 import org.wit.chef_master.models.Recipe
+import org.wit.chef_master.utils.DataManager
 
 
 class RecipeAdapter(
-    private val recipes: List<Recipe>,
+    private var recipes: List<Recipe>,
 ) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
     // 定义点击回调（参数为图片ID）
     var onImageClick: ((imageId: Int) -> Unit)? = null
@@ -38,6 +39,10 @@ class RecipeAdapter(
         holder.imageView.setOnClickListener {
             onImageClick?.invoke(recipe.id) // 传递菜品ID
         }
+    }
+    fun updateData(newData: List<Recipe>) {
+        recipes=newData
+        notifyDataSetChanged() // 触发UI刷新
     }
 
     override fun getItemCount() = recipes.size
