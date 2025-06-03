@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import org.wit.chef_master.R
+import org.wit.chef_master.adapters.CategoryAdapter
 import org.wit.chef_master.adapters.RecipeAdapter
 import org.wit.chef_master.utils.DataManager
 
@@ -29,25 +30,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        recipesRecyclerView = findViewById(R.id.recipesRecyclerView)
-        recipesRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter=RecipeAdapter(DataManager.getRecipes(false).sortedBy { it.calories })
-        adapter.onImageClick= { imageId ->
-            // 跳转并传递ID
-            startActivity(Intent(this, RecipeDetailActivity::class.java).apply {
-                putExtra("RECIPE_ID", imageId)
-            })
-        }
-        recipesRecyclerView.adapter =adapter
         // 初始化所有视图
         initViews()
+        loadRecipes()
+        setupViews()
+
+
         // 排序按钮点击事件
         findViewById<Button>(R.id.sortButton).setOnClickListener {
             showSortDialog()
         }
-
-
     }
 
     private fun initViews() {
@@ -62,11 +54,12 @@ class MainActivity : AppCompatActivity() {
         // 设置TabLayout
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab?.position) {
+                when (tab?.position) {
                     0 -> loadRecipes() // 推荐
                     1 -> showCategories() // 分类
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 
@@ -78,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             // 今日菜谱逻辑
         }
     }
+
     private fun showSortDialog() {
         val options = arrayOf("按热量排序", "按制作时长排序")
 
@@ -91,16 +85,17 @@ class MainActivity : AppCompatActivity() {
             }
             .show()
     }
+
     private fun sortByCalories() {
-        val sortButton=findViewById<Button>(R.id.sortButton)
-        sortButton.text="按热量排序"
+        val sortButton = findViewById<Button>(R.id.sortButton)
+        sortButton.text = "按热量排序"
         val sorted = DataManager.getRecipes(false).sortedBy { it.calories }
         adapter.updateData(sorted)
     }
 
     private fun sortByCookingTime() {
-        val sortButton=findViewById<Button>(R.id.sortButton)
-        sortButton.text="按制作时长排序"
+        val sortButton = findViewById<Button>(R.id.sortButton)
+        sortButton.text = "按制作时长排序"
         val sorted = DataManager.getRecipes(false).sortedBy { it.cookingTime }
         adapter.updateData(sorted)
     }
@@ -108,9 +103,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadRecipes() {
         // 加载菜谱逻辑
+        recipesRecyclerView = findViewById(R.id.recipesRecyclerView)
+        recipesRecyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = RecipeAdapter(DataManager.getRecipes(false).sortedBy { it.calories }, { imageId ->
+            // 跳转并传递ID
+            startActivity(Intent(this, RecipeDetailActivity::class.java).apply {
+                putExtra("RECIPE_ID", imageId)
+            })
+        })
+        recipesRecyclerView.adapter = adapter
+
     }
 
     private fun showCategories() {
-        // 分类显示逻辑
+        // 显示分类界面
+        recipesRecyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = CategoryAdapter(
+            tags = DataManager.getAllTags(), { imageId ->
+                // 跳转并传递ID
+                startActivity(Intent(this, RecipeDetailActivity::class.java).apply {
+                    putExtra("RECIPE_ID", imageId)
+                }
+                )
+            })
+        recipesRecyclerView.adapter=adapter
+
     }
 }
