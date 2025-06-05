@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         // 今日菜谱按钮点击事件
         todayRecipeButton.setOnClickListener {
             // 今日菜谱逻辑
+            startActivity(Intent(this, TodayMenuActivity::class.java))
+
         }
     }
 
