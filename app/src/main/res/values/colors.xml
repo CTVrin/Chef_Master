@@ -16,4 +16,5 @@
     <color name="onSurface">#1D1B20</color>
     <color name="strokeColor">#79747E</color>
     <color name="onSurfaceVariant">#49454F</color>
+    <color name="gray">#808080</color>
 </resources>

@@ -39,7 +39,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         // 设置菜谱标题
         findViewById<TextView>(R.id.recipeNameTextView).text = recipe.name
         //设置热量
-        findViewById<TextView>(R.id.caloriesTextView).text = "热量：" + recipe.calories + "卡路里"
+        findViewById<TextView>(R.id.caloriesTextView).text = "Calory：" + recipe.calories + "cal"
 
         // 添加食材
         val ingredientsContainer = findViewById<TextView>(R.id.ingredientsTextView)
@@ -59,7 +59,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         val favoriteButton = findViewById<ImageButton>(R.id.favoriteButton)
         favoriteButton.setOnClickListener {
             TodayMenuManager.addRecipe(recipe,1)
-            Toast.makeText(this, "添加一份到今日菜谱", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "add one to the Today's menu", Toast.LENGTH_SHORT).show()
         }
     }
 

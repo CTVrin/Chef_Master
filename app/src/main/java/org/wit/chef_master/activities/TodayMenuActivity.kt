@@ -41,7 +41,7 @@ class TodayMenuActivity : AppCompatActivity() {
 
     private fun updateTotalCalories() {
         findViewById<TextView>(R.id.tvTotalCalories).text =
-            "总热量：${TodayMenuManager.getTotalCalories()} 千卡"
+            "Total Calories：${TodayMenuManager.getTotalCalories()} kcal"
     }
 
     override fun onResume() {
