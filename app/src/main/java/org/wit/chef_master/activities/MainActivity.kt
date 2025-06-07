@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
           }
 
           // 更新显示
-          results.adapter = RecipeAdapter(filtered) { /* 点击处理 */ }
+          results.adapter = RecipeAdapter(filtered) {}
           return true
         }
       })
@@ -105,10 +105,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSortDialog() {
-        val options = arrayOf("按热量排序", "按制作时长排序")
+        val options = arrayOf("sort by calories", "sort by cooking time")
 
         AlertDialog.Builder(this)
-            .setTitle("选择排序方式")
+            .setTitle("select the way to sort")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> sortByCalories()
@@ -120,14 +120,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun sortByCalories() {
         val sortButton = findViewById<Button>(R.id.sortButton)
-        sortButton.text = "按热量排序"
+        sortButton.text = "sort by calories"
         val sorted = DataManager.getRecipes(false).sortedBy { it.calories }
         adapter.updateData(sorted)
     }
 
     private fun sortByCookingTime() {
         val sortButton = findViewById<Button>(R.id.sortButton)
-        sortButton.text = "按制作时长排序"
+        sortButton.text = "sort by cooking time"
         val sorted = DataManager.getRecipes(false).sortedBy { it.cookingTime }
         adapter.updateData(sorted)
     }
